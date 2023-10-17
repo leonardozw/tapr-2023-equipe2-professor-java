@@ -1,1 +1,7 @@
+spring:
+    cloud:
+        azure:
+            cosmos:
+                database: dbtapr
+                endpoint: https://cosmosleonardozw.documents.azure.com:443/
 
