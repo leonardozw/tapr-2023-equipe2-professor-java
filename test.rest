@@ -1,0 +1,19 @@
+### GetAllProfessores
+GET http://localhost:8080/api/v1/professores
+
+### createProfessor
+POST http://localhost:8080/api/v1/professores
+Content-Type: application/json
+
+{
+    "nome": "leonardo",
+    "documento": "654616846846",
+    "endereco": "jardim sofia",
+    "idade": 23
+}
+
+### getById
+GET http://localhost:8080/api/v1/professores/get/a2318cf9-2b1b-4102-b143-99b63bc257c7
+
+### deleteProfessor
+DELETE http://localhost:8080/api/v1/professores/delete/{id}

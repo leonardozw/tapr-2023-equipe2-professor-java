@@ -5,6 +5,7 @@
 ## CosmosDB
 - [Introdução](https://learn.microsoft.com/en-us/azure/cosmos-db/introduction)
 - [Databases, containers, and items](https://learn.microsoft.com/en-us/azure/cosmos-db/resource-model)
+- [Samples](https://github.com/Azure-Samples/azure-spring-data-cosmos-java-sql-api-samples)
 
 ```properties
 #logar no azure
