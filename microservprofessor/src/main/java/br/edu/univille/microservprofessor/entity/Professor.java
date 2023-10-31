@@ -27,5 +27,4 @@ public class Professor {
 
     private String endereco;
     private Integer idade;
-    
 }

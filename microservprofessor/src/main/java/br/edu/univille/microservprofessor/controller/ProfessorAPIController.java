@@ -2,26 +2,28 @@ package br.edu.univille.microservprofessor.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.univille.microservprofessor.entity.Professor;
-import br.edu.univille.microservprofessor.service.ProfessorService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import br.edu.univille.microservprofessor.service.impl.ProfessorServiceImpl;
+
 import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/v1/professores")
 public class ProfessorAPIController {
-    
-    private final ProfessorService service;
+
+    private final ProfessorServiceImpl service;
 
     @PostMapping
     public ResponseEntity<Professor> createProfessor(@RequestBody Professor professor){
@@ -29,13 +31,13 @@ public class ProfessorAPIController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProfessor);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Professor> getProfessorById(@PathVariable String id){
         Professor foundProfessor = service.getProfessorById(id);
         return ResponseEntity.status(HttpStatus.OK).body(foundProfessor);
     }
 
-    @GetMapping("/get/{documento}")
+    @GetMapping("/documento/{documento}")
     public ResponseEntity<Professor> getProfessorByDocumento(@PathVariable String documento){
         Professor foundProfessor = service.getProfessorByDocumento(documento);
         return ResponseEntity.status(HttpStatus.OK).body(foundProfessor);
