@@ -1,24 +1,30 @@
 # tapr-2023-equipe2-professor-java
 
-## Autenticação no AZURE
-[Azure CLI DOCS](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt)
-## CosmosDB
-- [Introdução](https://learn.microsoft.com/en-us/azure/cosmos-db/introduction)
-- [Databases, containers, and items](https://learn.microsoft.com/en-us/azure/cosmos-db/resource-model)
-- [Samples](https://github.com/Azure-Samples/azure-spring-data-cosmos-java-sql-api-samples)
+## Api
 
-```properties
-#logar no azure
-az login -u "user@unville.br"
+- **Status 2xx Successfull**
 
-#checar usuario logado
-az ad signed-in-user show
+| Endpoint  | Method  | Req.Body  | Status  | Resp.Body  | Description  |
+|---|---|---|---|---|---|
+| `/api/v1/professores`  | `GET`  |   | 200  | Professor[]  | Returns all Professors.  |
+| `/api/v1/professores`  | `POST`  | Professor  | 201  | Professor  | Creates a new Professor  |
+| `/api/v1/professores/id/{id}`  | `GET`  |   | 200  | Professor  | Get the Professor with the given id.  |
+| `/api/v1/professores/documento/{documento}`  | `GET`  |   | 200  | Professor  | Get the documento with the given documento.  |
+| `/api/v1/professores/update/{id}`  | `PUT`  | ProfessorUpdateRequest  | 200  | Professor  | Updates existing professor.  |
+| `/api/v1/professores/delete/{id}`  | `DELETE`  |   | 204  |   | Deletes the professor with the given id.  |
 
-#gives permission to read and write on cosmos
-az cosmosdb sql role assignment create --account-name COSMOSDBACCOUNT --resource-group GRUPODERECURSO --role-assignment-id 00000000-0000-0000-0000-000000000002 --role-definition-name "Cosmos DB Built-in Data Contributor" --scope "/" --principal-id GUIDUSUARIOAD
-```
+- **Status 4xx Error**
 
-Dependencies:
+| Endpoint  | Method  | Req.Body  | Status  | Resp.Body  | Description  |
+|---|---|---|---|---|---|
+| `/api/v1/professores`  | `GET`  |   | 200  | Professor[] | Returns empty array.  |
+| `/api/v1/professores`  | `POST`  | Professor  | 400, 409  | ErrorMessage  | Bad request or Conflict.  |
+| `/api/v1/professores/id/{id}`  | `GET`  |   | 404  | ErrorMessage  | Not Found.  |
+| `/api/v1/professores/documento/{documento}`  | `GET`  |   | 404  | ErrorMessage  |  Not Found.  |
+| `/api/v1/professores/update/{id}`  | `PUT`  | ProfessorUpdateRequest  | 400, 404  | ErrorMessage  | Bad Request or Not Found.  |
+| `/api/v1/professores/delete/{id}`  | `DELETE`  |   | 404  | ErrorMessage  | Not Found.  |
+
+**Dependencies:**
 - Cosmos DB related dependencies:
 ```properties
 		<dependency>
@@ -47,4 +53,39 @@ Dependencies:
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.1.0</version>
 		</dependency>
+```
+- Lombok:
+```properties
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>annotationProcessor</scope>
+		</dependency>
+```
+
+- Validation:
+```properties
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+```
+
+## Docs
+
+[Azure CLI DOCS](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt)
+### CosmosDB
+- [Introdução](https://learn.microsoft.com/en-us/azure/cosmos-db/introduction)
+- [Databases, containers, and items](https://learn.microsoft.com/en-us/azure/cosmos-db/resource-model)
+- [Samples](https://github.com/Azure-Samples/azure-spring-data-cosmos-java-sql-api-samples)
+
+```properties
+#logar no azure
+az login -u user@unville.br
+
+#checar usuario logado
+az ad signed-in-user show
+
+#gives permission to read and write on cosmos
+az cosmosdb sql role assignment create --account-name COSMOSDBACCOUNT --resource-group GRUPODERECURSO --role-assignment-id 00000000-0000-0000-0000-000000000002 --role-definition-name "Cosmos DB Built-in Data Contributor" --scope "/" --principal-id GUIDUSUARIOAD
 ```
