@@ -1,19 +1,63 @@
-### GetAllProfessores
+### Get All Professores
 GET http://localhost:8080/api/v1/professores
 
-### createProfessor
+
+### Create Professor
 POST http://localhost:8080/api/v1/professores
 content-type: application/json
 
 {
     "nome": "leonardo",
     "documento": "654616846846",
-    "endereco": "jardim sofia",
-    "idade": 23
+    "cep": "89223-390",
+    "telefone": "49 99972-8265",
+    "email": "leonardozw@gmail.com",
+    "dataNascimento": "2000-05-27"
 }
+
+### Create Professor com campos inválidos
+POST http://localhost:8080/api/v1/professores
+content-type: application/json
+
+{
+    "nome": "",
+    "documento": "",
+    "cep": "",
+    "telefone": "",
+    "email": "",
+    "dataNascimento": ""
+}
+
+
+### Update Professor
+PUT http://localhost:8080/api/v1/professores/update/00ad1770-71ef-45bd-84e0-df6935399d7d
+content-type: application/json
+
+{
+  "nome": "leonardo ZW",
+  "documento": "654616846846",
+  "cep": "89223-390",
+  "telefone": "49 99972-8265",
+  "email": "leonardozw@gmail.com",
+  "dataNascimento": "2000-05-27"
+}
+
 
 ### getById
 GET http://localhost:8080/api/v1/professores/id/{id}
+### getById não existente
+GET http://localhost:8080/api/v1/professores/id/999
 
-### deleteProfessor
-DELETE http://localhost:8080/api/v1/professores/delete/{id}
+
+### getByDocumento
+GET http://localhost:8080/api/v1/professores/documento/654616846846
+
+### getByDocumento não existente
+GET http://localhost:8080/api/v1/professores/documento/aaa
+
+
+### deleteProfessorById
+DELETE http://localhost:8080/api/v1/professores/delete/00ad1770-71ef-45bd-84e0-df6935399d7d
+
+### deleteProfessorById com id não existente
+DELETE http://localhost:8080/api/v1/professores/delete/999
