@@ -30,7 +30,7 @@ content-type: application/json
 
 
 ### Update Professor
-PUT http://localhost:8080/api/v1/professores/update/00ad1770-71ef-45bd-84e0-df6935399d7d
+PUT http://localhost:8080/api/v1/professores/update/{id}
 content-type: application/json
 
 {
@@ -45,6 +45,7 @@ content-type: application/json
 
 ### getById
 GET http://localhost:8080/api/v1/professores/id/{id}
+
 ### getById não existente
 GET http://localhost:8080/api/v1/professores/id/999
 
@@ -57,7 +58,7 @@ GET http://localhost:8080/api/v1/professores/documento/aaa
 
 
 ### deleteProfessorById
-DELETE http://localhost:8080/api/v1/professores/delete/00ad1770-71ef-45bd-84e0-df6935399d7d
+DELETE http://localhost:8080/api/v1/professores/delete/{id}
 
 ### deleteProfessorById com id não existente
 DELETE http://localhost:8080/api/v1/professores/delete/999
