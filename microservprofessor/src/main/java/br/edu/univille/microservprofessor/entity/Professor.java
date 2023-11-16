@@ -2,23 +2,26 @@ package br.edu.univille.microservprofessor.entity;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import com.azure.spring.data.cosmos.core.mapping.Container;
 import com.azure.spring.data.cosmos.core.mapping.GeneratedValue;
 import com.azure.spring.data.cosmos.core.mapping.PartitionKey;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Container(containerName = "professor")
 public class Professor {
     
@@ -42,11 +45,13 @@ public class Professor {
     @NotBlank(message = "O email é obrigatório.")
     private String email;
 
-    @NotNull(message = "A data de nascimento é obrigatória.")
+    @NotNull(message = "A data de Nascimento é obrigatória.")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dataNascimento;
 
-    private Instant createdAt;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createdAt;
 
-    @LastModifiedDate
-    private Instant LastUpdatedAt;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime lastUpdatedAt;
 }
