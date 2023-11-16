@@ -1,6 +1,6 @@
 package br.edu.univille.microservprofessor.service.impl;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -13,19 +13,21 @@ import br.edu.univille.microservprofessor.exceptions.ProfessorAlreadyExistsExcep
 import br.edu.univille.microservprofessor.exceptions.ProfessorNotFoundException;
 import br.edu.univille.microservprofessor.repository.ProfessorRepository;
 import br.edu.univille.microservprofessor.service.ProfessorService;
-import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor
 public class ProfessorServiceImpl implements ProfessorService{
     
     private final ProfessorRepository professorRepository;
+
+    public ProfessorServiceImpl(ProfessorRepository professorRepository) {
+        this.professorRepository = professorRepository;
+    }
 
     public Professor createProfessor(Professor professor){
         if(professorRepository.existsByDocumento(professor.getDocumento())){
             throw new ProfessorAlreadyExistsException(professor.getDocumento());
         }
-        professor.setCreatedAt(Instant.now());
+        professor.setCreatedAt(LocalDateTime.now());
         return professorRepository.save(professor);
     }
 
@@ -43,12 +45,22 @@ public class ProfessorServiceImpl implements ProfessorService{
 
     public Professor updateProfessor(String id, ProfessorUpdateRequest professor) {
         var professorToBeUpdated = professorRepository.findById(id).orElseThrow(RuntimeException::new);
-        professorToBeUpdated.setNome(professor.nome());
-        professorToBeUpdated.setCep(professor.cep());
-        professorToBeUpdated.setTelefone(professor.telefone());
-        professorToBeUpdated.setEmail(professor.email());
-        professorToBeUpdated.setDataNascimento(professor.dataNascimento());
-        professorToBeUpdated.setLastUpdatedAt(Instant.now());
+        if(professor.nome() != null){
+            professorToBeUpdated.setNome(professor.nome());
+        }
+        if(professor.cep() != null){
+            professorToBeUpdated.setCep(professor.cep());
+        }
+        if(professor.telefone() != null){
+            professorToBeUpdated.setTelefone(professor.telefone());
+        }
+        if(professor.email() != null){
+            professorToBeUpdated.setEmail(professor.email());
+        }
+        if(professor.dataNascimento() != null){
+            professorToBeUpdated.setDataNascimento(professor.dataNascimento());
+        }
+        professorToBeUpdated.setLastUpdatedAt(LocalDateTime.now());
         return professorRepository.save(professorToBeUpdated);
     }
 
