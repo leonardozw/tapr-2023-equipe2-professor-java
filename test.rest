@@ -1,7 +1,6 @@
 ### Get All Professores
 GET http://localhost:8080/api/v1/professores
 
-
 ### Create Professor
 POST http://localhost:8080/api/v1/professores
 content-type: application/json
@@ -35,7 +34,6 @@ content-type: application/json
 
 {
   "nome": "leonardo ZW",
-  "documento": "654616846846",
   "cep": "89223-390",
   "telefone": "49 99972-8265",
   "email": "leonardozw@gmail.com",
