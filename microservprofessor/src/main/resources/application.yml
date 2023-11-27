@@ -6,7 +6,6 @@ server:
         threads:
             max: 50
             min-spare: 5
-
 spring:
     application:
         name: microservprofessor
@@ -17,4 +16,9 @@ spring:
             cosmos:
                 database: dbtapr
                 endpoint: https://cosmosleonardozw.documents.azure.com:443/
+app:
+  component:
+    service: servicebus-pubsub
+    topic:
+      professor: topico-equipe-2-professor
 
