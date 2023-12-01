@@ -1,6 +1,9 @@
 ### Get All Professores
 GET http://localhost:8080/api/v1/professores
 
+### Get All Disciplinas
+GET http://localhost:8080/api/v1/disciplinas
+
 ### Create Professor
 POST http://localhost:8080/api/v1/professores
 content-type: application/json
@@ -10,8 +13,7 @@ content-type: application/json
     "documento": "654616846846",
     "cep": "89223-390",
     "telefone": "49 99972-8265",
-    "email": "leonardozw@gmail.com",
-    "dataNascimento": "2000-05-27"
+    "email": "leonardozw@gmail.com"
 }
 
 ### Create Professor com campos inválidos
