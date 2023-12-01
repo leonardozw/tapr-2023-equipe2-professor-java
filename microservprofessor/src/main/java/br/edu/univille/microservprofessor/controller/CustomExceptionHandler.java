@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import br.edu.univille.microservprofessor.exceptions.ErrorMessage;
 import br.edu.univille.microservprofessor.exceptions.ProfessorAlreadyExistsException;
 import br.edu.univille.microservprofessor.exceptions.ProfessorNotFoundException;
 
