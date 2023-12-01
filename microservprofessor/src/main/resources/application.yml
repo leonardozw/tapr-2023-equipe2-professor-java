@@ -21,4 +21,5 @@ app:
     service: servicebus-pubsub
     topic:
       professor: topico-equipe-2-professor
+      disciplina: topico-equipe-2-disciplina
 
