@@ -1,4 +1,4 @@
-package br.edu.univille.microservprofessor.controller;
+package br.edu.univille.microservprofessor.exceptions;
 
 import java.util.Arrays;
 import java.util.List;
