@@ -1,5 +1,36 @@
 # tapr-2023-equipe2-professor-java
 
+## Executando a Aplicação
+!!! importante fazer login em conta no [azure](#docs) !!! 
+- Buildar o .jar:
+```
+mvn clean install -DskipTests
+```
+- Iniciar o Dapr:
+```
+dapr run -f .
+```
+- Simulando a publicação de um evento no tópico de disciplinas:
+```
+dapr publish --publish-app-id tapr-2023-equipe2-professor-java --pubsub servicebus-pubsub --topic topico-equipe-2-disciplina --data '{"id": "11111","cargaHoraria": 144,"semestre": 4}'
+```
+- O retorno deve ser:
+```
+✅  Event published successfully
+```
+- Ao fazer **GET** para a rota `http://localhost:8080/api/v1/disciplinas` o retorno deve ser a disciplina abaixo:
+```json
+{
+  "id": "11111",
+  "cargaHoraria": 144,
+  "semestre": 4
+}
+```
+
+Abaixo segue a documentação da API de Professor.
+
+# Microserviço professor
+
 - Entity Professor:
 ```json
 {
@@ -8,10 +39,7 @@
   "documento": String,
   "cep": String,
   "telefone": String,
-  "email": String,
-  "dataNascimento": LocalDate,
-  "createdAt": LocalDateTime,
-  "lastUpdatedAt": LocalDateTime
+  "email": String
 }
 ```
 
@@ -23,7 +51,6 @@
 | cep  | String  | false  | false  | yes  |
 | telefone  | String  | false  | false  | yes  |
 | email  | String  | false  | false  | yes  |
-| dataNascimento  | LocalDate  | false  | false  | yes  |
 
 ## `/api/v1/professores`
 
@@ -60,8 +87,7 @@
     "documento": "654616846846",
     "cep": "89223-390",
     "telefone": "49 99972-8265",
-    "email": "leonardozw@gmail.com",
-    "dataNascimento": "2000-05-27"
+    "email": "leonardozw@gmail.com"
 }
 ```
 
@@ -79,10 +105,7 @@ Connection: close
   "documento": "654616846846",
   "cep": "89223-390",
   "telefone": "49 99972-8265",
-  "email": "leonardozw@gmail.com",
-  "dataNascimento": "2000-07-27",
-  "createdAt": "2023-11-16 19:35:06",
-  "lastUpdatedAt": null
+  "email": "leonardozw@gmail.com"
 }
 ```
 
@@ -95,8 +118,7 @@ Connection: close
   "documento": "654616846846",
   "cep": "89223-390",
   "telefone": "49 99972-8265",
-  "email": "leonardo@gmail.com",
-  "dataNascimento": "2000-05-27"
+  "email": "leonardo@gmail.com"
 }
 ```
 - Response:
@@ -113,14 +135,11 @@ Connection: close
   "documento": "654616846846",
   "cep": "89223-390",
   "telefone": "49 99972-8265",
-  "email": "leonardo@gmail.com",
-  "dataNascimento": "2000-07-27",
-  "createdAt": "2023-11-16 19:35:06", 
-  "lastUpdatedAt": "2023-11-16 19:36:53"
+  "email": "leonardo@gmail.com"
 }
 ```
 
-## Docs
+## docs
 ### Azure Cli
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt)
 ### CosmosDB
@@ -182,5 +201,19 @@ az cosmosdb sql role assignment create --account-name COSMOSDBACCOUNT --resource
 <dependency>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-starter-validation</artifactId>
+</dependency>
+```
+- Dapr sdk:
+```properties
+<dependency>
+  <groupId>io.dapr</groupId>
+  <artifactId>dapr-sdk</artifactId>
+  <version>1.10.0</version>
+</dependency>
+
+<dependency>
+  <groupId>io.dapr</groupId>
+  <artifactId>dapr-sdk-springboot</artifactId>
+  <version>1.10.0</version>
 </dependency>
 ```
