@@ -1,8 +1,8 @@
 package br.edu.univille.microservprofessor.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.azure.cosmos.models.PartitionKey;
@@ -13,11 +13,24 @@ import br.edu.univille.microservprofessor.exceptions.ProfessorAlreadyExistsExcep
 import br.edu.univille.microservprofessor.exceptions.ProfessorNotFoundException;
 import br.edu.univille.microservprofessor.repository.ProfessorRepository;
 import br.edu.univille.microservprofessor.service.ProfessorService;
+import io.dapr.client.DaprClient;
+import io.dapr.client.DaprClientBuilder;
 
 @Service
 public class ProfessorServiceImpl implements ProfessorService{
     
     private final ProfessorRepository professorRepository;
+
+    private DaprClient client = new DaprClientBuilder().build();
+
+    @Value("${app.component.topic.professor}")
+    private String TOPIC_NAME;
+    @Value("${app.component.service}")
+    private String PUBSUB_NAME;
+
+    private void publish(Professor professor){
+        client.publishEvent(PUBSUB_NAME, TOPIC_NAME, professor).block();
+    }
 
     public ProfessorServiceImpl(ProfessorRepository professorRepository) {
         this.professorRepository = professorRepository;
@@ -27,7 +40,7 @@ public class ProfessorServiceImpl implements ProfessorService{
         if(professorRepository.existsByDocumento(professor.getDocumento())){
             throw new ProfessorAlreadyExistsException(professor.getDocumento());
         }
-        professor.setCreatedAt(LocalDateTime.now());
+        publish(professor);
         return professorRepository.save(professor);
     }
 
@@ -57,10 +70,7 @@ public class ProfessorServiceImpl implements ProfessorService{
         if(professor.email() != null){
             professorToBeUpdated.setEmail(professor.email());
         }
-        if(professor.dataNascimento() != null){
-            professorToBeUpdated.setDataNascimento(professor.dataNascimento());
-        }
-        professorToBeUpdated.setLastUpdatedAt(LocalDateTime.now());
+        publish(professorToBeUpdated);
         return professorRepository.save(professorToBeUpdated);
     }
 
